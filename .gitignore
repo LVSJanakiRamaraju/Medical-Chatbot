@@ -1,0 +1,32 @@
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Editable install metadata
+*.egg-info/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Vector database / embeddings (optional)
+db/
+chroma_db/
+faiss_index/
+
+# Logs
+*.log
