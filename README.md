@@ -1,26 +1,67 @@
-# Medical-Chatbot
-
+# End-to-end-Medical-Chatbot
 
 # How to run?
 ### STEPS:
 
 Clone the repository
 
-'''bash
-Project repo:
-'''
+```bash
+Project repo: https://github.com/puneeth0309/Medical-Chatbot.git
+```
 
 ### STEP 01- Create a conda environment after opening the repository
 
-'''bash
-conda create -n  medibot python=3.10 -y
-'''
+```bash
+conda create -n medibot python=3.10 -y
+```
 
-'''
+```bash
 conda activate medibot
-'''
+```
 
-### step 02- install the requirements 
-'''bash
+### STEP 02- install the requirements
+```bash
 pip install -r requirements.txt
-'''
+```
+
+
+### Create a `.env` file in the root directory and add your Pinecone and Groq  credentials as follows:
+
+```ini
+PINECONE_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+PINECONE_API_ENV = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+GROQ_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+GROQ_API_ENV = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+```
+
+
+### Download the Vector Model From Hugging Face
+
+```ini
+## From the following link:
+https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2?utm_source=chatgpt.com
+```
+
+```bash
+# run the following command
+python store_index.py
+```
+
+```bash
+# Finally run the following command
+python app.py
+```
+
+Now,
+```bash
+open up localhost:
+```
+
+
+### Techstack Used:
+
+- Python
+- LangChain
+- Flask
+- Groq
+- Pinecone
