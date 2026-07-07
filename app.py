@@ -1,6 +1,5 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, request
 from src.helper import downloading_hugging_face_embeddings
-from langchain_pinecone import PineconeVectorStore
 from langchain_groq import ChatGroq
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -15,13 +14,21 @@ pinecone_api_key = os.getenv("PINECONE_API_KEY")
 groq_api_key = os.getenv("GROQ_API_KEY")
 os.environ["PINECONE_API_KEY"] = pinecone_api_key
 os.environ["GROQ_API_KEY"] = groq_api_key
+
 embeddings = downloading_hugging_face_embeddings()
-index_name = "test"
-docsearch = PineconeVectorStore.from_existing_index(
-    index_name=index_name,
-    embedding=embeddings
-)
-retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k": 3})
+
+try:
+    from langchain_pinecone import PineconeVectorStore
+    index_name = "test"
+    docsearch = PineconeVectorStore.from_existing_index(
+        index_name=index_name,
+        embedding=embeddings
+    )
+    retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k": 3})
+except Exception as exc:
+    print(f"Pinecone initialization failed: {exc}")
+    retriever = None
+
 llm = ChatGroq(
     model_name="llama-3.1-8b-instant",
     temperature=0.5
@@ -33,7 +40,7 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 question_ans_chain = create_stuff_documents_chain(llm=llm, prompt=prompt)
-rag_chain = create_retrieval_chain(retriever, question_ans_chain)
+rag_chain = None if retriever is None else create_retrieval_chain(retriever, question_ans_chain)
 
 
 @app.route("/")
@@ -42,16 +49,16 @@ def index():
 
 @app.route("/get",methods=["GET","POST"])
 def chat():
- msg=request.form["msg"]
- input = msg
- print(input)
- response = rag_chain.invoke({"input": msg})
- print("Response :" , response["answer"])
- return str(response["answer"])
+    msg = request.form["msg"]
+    if rag_chain is None:
+        return "Pinecone is not configured. Please set PINECONE_API_KEY and ensure the vector store is available."
+    response = rag_chain.invoke({"input": msg})
+    return str(response["answer"])
 
 
 if __name__ == "__main__":
-  app.run(host="127.0.0.1", port=5001, debug=True)
+    port = int(os.environ.get("PORT", 5001))
+    app.run(host="0.0.0.0", port=port, debug=False)
 
 
 
