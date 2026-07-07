@@ -1,3 +1,5 @@
+# Pin the LangChain/Pinecone stack to versions that are compatible with this project.
+# Python 3.13+ is not supported by this older dependency set.
 sentence-transformers
 langchain==0.2.16
 langchain-community==0.2.16
@@ -5,9 +7,9 @@ langchain-core==0.2.38
 flask
 pypdf
 python-dotenv
-pinecone[grpc]
-langchain-pinecone
-langchain-groq
-langchain-experimental
+pinecone[grpc]==5.0.1
+langchain-pinecone==0.1.3
+langchain-groq==0.1.9
+langchain-experimental==0.0.65
 huggingface-hub
 -e .

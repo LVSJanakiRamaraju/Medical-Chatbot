@@ -11,6 +11,8 @@ Project repo: https://github.com/puneeth0309/Medical-Chatbot.git
 
 ### STEP 01- Create a conda environment after opening the repository
 
+This project uses an older LangChain/Pinecone stack, so use Python 3.10, 3.11, or 3.12. Python 3.13+ is not supported by the pinned dependency set.
+
 ```bash
 conda create -n medibot python=3.10 -y
 ```
@@ -28,8 +30,7 @@ pip install -r requirements.txt
 ### Create a `.env` file in the root directory and add your Pinecone and Groq  credentials as follows:
 
 ```ini
-PINECONE_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-PINECONE_API_ENV = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
 GROQ_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 GROQ_API_ENV = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
