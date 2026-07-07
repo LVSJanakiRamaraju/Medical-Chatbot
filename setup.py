@@ -7,5 +7,5 @@ setup(
     author_email="kottisapuneeth09@gmail.com",
     packages=find_packages(),
     install_requires=[],
-    python_requires=">=3.10,<3.13"
+    python_requires=">=3.10,<3.15"
 )
