@@ -28,8 +28,7 @@ pip install -r requirements.txt
 ### Create a `.env` file in the root directory and add your Pinecone and Groq  credentials as follows:
 
 ```ini
-PINECONE_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-PINECONE_API_ENV = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
 GROQ_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 GROQ_API_ENV = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
