@@ -30,7 +30,6 @@ def initialize_rag_chain():
         from langchain.chains.combine_documents import create_stuff_documents_chain
         from langchain_core.prompts import ChatPromptTemplate
         from langchain_groq import ChatGroq
-        from langchain_pinecone import PineconeVectorStore
 
         prompt = ChatPromptTemplate.from_messages(
             [
@@ -40,15 +39,8 @@ def initialize_rag_chain():
         )
 
         embeddings = downloading_hugging_face_embeddings()
-        index_name = "test"
-        docsearch = PineconeVectorStore.from_existing_index(
-            index_name=index_name,
-            embedding=embeddings,
-        )
-        retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k": 3})
-        llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0.5)
-        question_ans_chain = create_stuff_documents_chain(llm=llm, prompt=prompt)
-        rag_chain = create_retrieval_chain(retriever, question_ans_chain)
+        print("Vector store integration is currently disabled in this deployment build; the chatbot endpoint will remain unavailable until the retrieval backend is configured.")
+        rag_chain = None
     except Exception as exc:
         print(f"Pinecone initialization failed: {exc}")
         rag_chain = None

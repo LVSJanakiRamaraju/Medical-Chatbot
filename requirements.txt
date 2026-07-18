@@ -1,4 +1,4 @@
-# Pin the LangChain/Pinecone stack to versions that are compatible with this project.
+# Pin the LangChain stack to versions that are compatible with this project.
 # Python 3.13+ is not supported by this older dependency set.
 sentence-transformers
 langchain==0.2.16
@@ -6,8 +6,7 @@ langchain-community==0.2.16
 langchain-core==0.2.38
 langchain-groq==0.1.9
 langchain-experimental==0.0.65
-langchain-huggingface
-langchain-pinecone
+langchain-huggingface==0.0.3
 gunicorn
 flask
 pypdf
